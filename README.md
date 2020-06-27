@@ -1,3 +1,4 @@
+## To install the modules for this project: "npm i" in the terminal
 
 In this assessment, you'll create a screen that shows a list of collections, and per collection a list
 of assets.
