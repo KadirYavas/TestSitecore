@@ -3,6 +3,7 @@ import Lloyd from '../images/Lloyd.jpg';
 import Nya from '../images/Nya.jpg';
 import Wu from '../images/Wu.jpg';
 import Dropdown from 'react-bootstrap/Dropdown'
+import '../css/style.css';
 
 function Ninjago() {
 
@@ -39,8 +40,29 @@ function Ninjago() {
         setCurrent(e.target.id)
     }
 
+    const [tag, setTag] = useState([
+        {
+            name: 'Ninjago',
+            subTag: {
+                name: 'Ninja',
+                subTag: {
+                    name: 'Secret Ninja Force',
+                    subTag: {
+                        name: 2017
+                    }
+                },
+            },
+        },
+    ])
+
+    const [cptTag, setCptTag] = useState(0)
+
+    const show = () => {
+        setCptTag(cptTag + 1)
+    }
+
     return (
-        <div className="container mt-5">
+        <div className="contain mt-5">
             <div className="row">
                 <div className="col-3 mt-3">
                     <h3>Ninjago</h3>
@@ -50,6 +72,16 @@ function Ninjago() {
                         :
                         <button className="btn btn-sm btn-danger ml-3" onClick={click4}>Close Assets</button>
                     }
+                    {cptTag % 2 == 0 ?
+                    <button className="ml-2 btn btn-sm btn-primary" onClick={show}>Show Tag</button>
+                    :
+                    <button className="ml-2 btn btn-sm btn-danger" onClick={show}>Close Tag</button>
+                    }
+                    {cptTag % 2 == 1 && 
+                        <div className="d-flex mt-2">
+                            {tag.map(a => <h6>{a.name} > {a.subTag.name} > {a.subTag.subTag.name} > {a.subTag.subTag.subTag.name}</h6>)}
+                        </div>
+                    }
                 </div>
                 <div className="row col-9 justify-content-center">
                     {ninjago.map(i => cpt4 % 2 == 1 && 
@@ -57,7 +89,7 @@ function Ninjago() {
                         {current == i.id &&
                             <i className="fas fa-sort-down text-success mr-2" style={{float: 'left'}}></i>
                         }
-                        <h5>{i.id}.{i.name}</h5> <img src={i.src} width="50px" alt=""/>
+                        <h5>{i.id}.{i.name}</h5> <img src={i.src} className="img" alt=""/>
                             <div className="mt-2">
                                 {current != i.id &&
                                     <button className="btn btn-sm btn-primary" id={i.id} onClick={master}>Make master</button>
@@ -66,7 +98,7 @@ function Ninjago() {
                         </div>
                     )}
                     {cpt4 % 2 == 1 &&
-                        <Dropdown>
+                        <Dropdown className="offset-1">
                             <Dropdown.Toggle variant="info" id="dropdown-basic" className="btn btn-sm">
                                 Sorting
                             </Dropdown.Toggle>

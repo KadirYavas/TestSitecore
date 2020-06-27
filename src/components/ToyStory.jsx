@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Buzz from '../images/Buzz.jpg';
 import Alien from '../images/Alien.jpg';
 import Dropdown from 'react-bootstrap/Dropdown'
+import '../css/style.css';
 
 function ToyStory() {
 
@@ -34,18 +35,21 @@ function ToyStory() {
 
     const [tag, setTag] = useState([
         {
-            name: 'Cartoon',
+            name: 'Toy story',
+            subTag: {
+                name: 'Disney',
+                subTag: {
+                    name: 'Pixar',
+                    subTag: {
+                        name: 'Original Movie',
+                        subTag: {
+                            name: 2010
+                        }
+                    }
+                },
+            },
         },
-        {
-            name: 'Family Simpson'
-        },
-        {
-            name: 2014
-        }
     ])
-
-
-    const [none, setNone] = useState(false)
 
     const [cptTag, setCptTag] = useState(0)
 
@@ -55,7 +59,7 @@ function ToyStory() {
 
     return (
 
-        <div className="container mt-5">
+        <div className="contain mt-5">
             <div className="row">
                 <div className="col-3 mt-3">
                     <h3>Toy Story</h3>
@@ -71,8 +75,8 @@ function ToyStory() {
                     <button className="ml-2 btn btn-sm btn-danger" onClick={show}>Close Tag</button>
                     }
                     {cptTag % 2 == 1 && 
-                        <div className="d-flex">
-                            {tag.map((a, index) => <h6>{a.name}</h6>)}
+                        <div className="d-flex mt-2">
+                            {tag.map(a => <h6>{a.name} > {a.subTag.name} > {a.subTag.subTag.name} > {a.subTag.subTag.subTag.name} > {a.subTag.subTag.subTag.subTag.name}</h6>)}
                         </div>
                     }
                 </div>
@@ -82,7 +86,7 @@ function ToyStory() {
                         {current == u.id &&
                         <i className="fas fa-sort-down text-success mr-2" style={{float: 'left'}}></i>
                         }
-                        <h5>{u.id}.{u.name}</h5> <img src={u.src} width="40px" alt="" />
+                        <h5>{u.id}.{u.name}</h5> <img src={u.src} className="img" alt="" />
                             <div className="mt-2">
                                 {current != u.id && 
                                     <button className="btn btn-sm btn-primary" id={u.id} onClick={master}>Make master</button>
@@ -91,7 +95,7 @@ function ToyStory() {
                         </div>
                     )}
                     {cpt3 % 2 == 1 &&
-                        <Dropdown>
+                        <Dropdown className="offset-4">
                             <Dropdown.Toggle variant="info" id="dropdown-basic" className="btn btn-sm">
                                 Sorting
                             </Dropdown.Toggle>

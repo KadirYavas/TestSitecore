@@ -4,6 +4,7 @@ import Flash from '../images/Flash.jpg';
 import GreenL from '../images/Green lantern.jpg'
 import Superman from '../images/Superman.jpg'
 import Dropdown from 'react-bootstrap/Dropdown'
+import '../css/style.css';
 
 function Heroes() {
 
@@ -44,8 +45,26 @@ function Heroes() {
         setCurrent(e.target.id)
     }
 
+    const [tag, setTag] = useState([
+        {
+            name: 'Super Heroes',
+            subTag: {
+                name: 'DC Super Heroes',
+                subTag: {
+                    name: 2014
+                },
+            },
+        },
+    ])
+
+    const [cptTag, setCptTag] = useState(0)
+
+    const show = () => {
+        setCptTag(cptTag + 1)
+    }
+
 return (
-    <div className="container mt-5">
+    <div className="contain mt-5">
         <div className="row">
             <div className="col-3 mt-3">
                 <h3>Super Heroes</h3>
@@ -55,6 +74,16 @@ return (
                     :
                     <button className="btn btn-sm btn-danger ml-3" onClick={click2}>Close Assets</button>
                 }
+                {cptTag % 2 == 0 ?
+                    <button className="ml-2 btn btn-sm btn-primary" onClick={show}>Show Tag</button>
+                    :
+                    <button className="ml-2 btn btn-sm btn-danger" onClick={show}>Close Tag</button>
+                    }
+                    {cptTag % 2 == 1 && 
+                        <div className="d-flex mt-2">
+                            {tag.map(a => <h6>{a.name} > {a.subTag.name} > {a.subTag.subTag.name}</h6>)}
+                        </div>
+                    }
             </div>
             <div className="row col-8 justify-content-center">
                 {heroes.map((a, index) => cpt2 % 2 == 1 && 
@@ -62,7 +91,7 @@ return (
                     {current == a.id &&
                         <i className="fas fa-sort-down text-success mr-2" style={{float: 'left'}}></i>
                     }
-                    <h5>{a.id}.{a.name}</h5> <img src={a.src} width="50px" alt=""/>
+                    <h5>{a.id}.{a.name}</h5> <img src={a.src} className="img" alt=""/>
                         <div className="mt-2">
                             {current != a.id &&
                                 <button className="btn btn-sm btn-primary" id={a.id} onClick={master}>Make master</button>
@@ -72,7 +101,7 @@ return (
                 )}
             </div> 
                 {cpt2 % 2 == 1 &&
-                    <Dropdown>
+                    <Dropdown className="float-right">
                         <Dropdown.Toggle variant="info" id="dropdown-basic" className="btn btn-sm">
                             Sorting
                         </Dropdown.Toggle>

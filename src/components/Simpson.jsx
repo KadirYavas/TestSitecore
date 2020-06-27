@@ -6,6 +6,7 @@ import Lisa from '../images/Lisa.jpg';
 import Maggie from '../images/Maggie.jpg';
 import Marge from '../images/Marge.jpg';
 import Dropdown from 'react-bootstrap/Dropdown'
+import '../css/style.css';
 
 function Simpson() {
 
@@ -56,10 +57,28 @@ function Simpson() {
         setCurrent(e.target.id)
     }
 
+    const [tag, setTag] = useState([
+        {
+            name: 'Cartoon',
+            subTag: {
+                name: 'Family Simpson',
+                subTag: {
+                    name: 2014
+                },
+            },
+        },
+    ])
+
+    const [cptTag, setCptTag] = useState(0)
+
+    const show = () => {
+        setCptTag(cptTag + 1)
+    }
+
     return (
-        <div className="container mt-5">
+        <div className="contain mt-5">
             <div className="row">
-                <div className="col-2">
+                <div className="col-3">
                     <h4>The Simpsons</h4>
                     <img src={first} width="60px" alt="" />
                     {cpt % 2 == 0 ?
@@ -67,14 +86,24 @@ function Simpson() {
                     :
                     <button className="btn btn-sm btn-danger ml-1" onClick={click}>Close Assets</button>
                     }
+                    {cptTag % 2 == 0 ?
+                    <button className="ml-2 btn btn-sm btn-primary" onClick={show}>Show Tag</button>
+                    :
+                    <button className="ml-2 btn btn-sm btn-danger" onClick={show}>Close Tag</button>
+                    }
+                    {cptTag % 2 == 1 && 
+                        <div className="d-flex mt-2">
+                            {tag.map(a => <h6>{a.name} > {a.subTag.name} > {a.subTag.subTag.name}</h6>)}
+                        </div>
+                    }
                 </div>
-                <div className="row col-8 offset-1 justify-content-center">
+                <div className="row col-8 justify-content-center">
                     {simpson.map((e, index) => cpt % 2 == 1 && 
                         <div className="col-2" key={index}>
                             {current == e.id &&
                                 <i className="fas fa-sort-down text-success mr-2" style={{float: 'left'}}></i>
                             }
-                            <h5>{e.id}.{e.name}</h5> <img src={e.src} width="50px" alt=""/>
+                            <h5>{e.id}.{e.name}</h5> <img src={e.src} className="img" alt=""/>
                             <div className="mt-2">
                                 {current != e.id &&
                                     <button className="btn btn-sm btn-primary" id={e.id} onClick={master}>Make master</button>
